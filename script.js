@@ -6,9 +6,11 @@ const words = [
 
 let wordToGuess
 let lettersGuessedSoFar
+let countDown
 
 const startButton = document.getElementById('start-button')
 const guess = document.getElementById('guess')
+const countdownElement = document.getElementById('countdown')
 guess.hidden = true
 startButton.onclick = startGame
 guess.onkeydown = makeGuess
@@ -26,5 +28,18 @@ function startGame() {
   lettersGuessedSoFar = []
   guess.hidden = false
   startButton.hidden = true
+  countDown = 10
+  startCountdown()
+}
+
+function startCountdown() {
+  const timer = setInterval(function() {
+    countdownElement.innerText = countDown
+    countDown = countDown - 1
+    if (countDown < 0) {
+      countdownElement.innerText = 'OUT OF TIME'
+      clearInterval(timer)
+    }
+  }, 1000)
 }
 
